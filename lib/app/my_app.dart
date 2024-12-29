@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/core/resources/routes_manager.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,11 +8,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RoutesManager.onGenerateRoute,
-      initialRoute: RoutesName.onBoardingScreen,
-      // routes: RoutesManager.routes,
+    return ScreenUtilInit(
+      designSize: const Size(ConstsValue.figmaWidthDesign, ConstsValue.figmaHeightDesign),
+      minTextAdapt: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RoutesManager.onGenerateRoute,
+        initialRoute: RoutesName.onBoardingScreen,
+        // routes: RoutesManager.routes,
+      ),
     );
   }
 }

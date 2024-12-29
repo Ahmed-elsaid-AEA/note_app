@@ -3,5 +3,7 @@ import 'package:flutter/material.dart';
 class ColorManager{
   ColorManager._();
   static const Color kPrimaryColor=Color(0xff04332D);
+  static const Color kBlackColor=Color(0xff000000);
+  static const Color kGreyColor=Color(0xff686868);
   static const Color kWhiteColor=Color(0xffffffff);
 }
