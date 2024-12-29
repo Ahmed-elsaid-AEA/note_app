@@ -41,7 +41,7 @@ class NewNoteController {
     descController = TextEditingController();
     _controllerEditStatus = StreamController();
     _inputEditStatus = _controllerEditStatus.sink;
-    outputEditStatus = _controllerEditStatus.stream;
+    outputEditStatus = _controllerEditStatus.stream.asBroadcastStream();
   }
 
   Future<void> disposeController() async {
@@ -60,7 +60,11 @@ class NewNoteController {
     } else {
       //?edit
       //?now show bottom sheet alert to choose edit or delete
-      showAlertEditORDeleteNoteBottomSheet();
+      if (editStatus == true) {
+        editThisNote();
+      } else {
+        showAlertEditORDeleteNoteBottomSheet();
+      }
     }
   }
 
@@ -72,6 +76,19 @@ class NewNoteController {
     } else {
       log("object");
       addNewNoteToHive();
+      //?add data to hive
+      //?close
+    }
+    //?=============
+  }
+
+  void editThisNote() {
+    //?add status========
+    if (titleController.text.trim().isEmpty || descController.text.isEmpty) {
+      //?now will show alert bottom sheet
+      showAlertBottomSheet();
+    } else {
+      editNoteToHive();
       //?add data to hive
       //?close
     }
@@ -92,6 +109,22 @@ class NewNoteController {
     await hiveHelper.addValue(key: id.toString(), value: noteModel);
     //? now change value of default id
     await addIDDefaultToNote(id);
+    //?return to main screen
+    Navigator.of(context).pop();
+  }
+
+  Future<void> editNoteToHive() async {
+    NoteModel noteMode = NoteModel(
+        id: noteModel!.id,
+        title: titleController.text.trim(),
+        desc: descController.text.trim(),
+        dateTime: DateTime.now().toString(),
+        done: false);
+
+    HiveHelper<NoteModel> hiveHelper = HiveHelper(ConstsValue.kNoteBox);
+    await hiveHelper.addValue(key: noteModel!.id.toString(), value: noteMode);
+    //? now change value of default id
+    await addIDDefaultToNote(noteModel!.id);
     //?return to main screen
     Navigator.of(context).pop();
   }
@@ -142,7 +175,7 @@ class NewNoteController {
     Navigator.of(context).pop();
   }
 
-  Future<void> onTapAtINEditStatusDeleteButton() async{
+  Future<void> onTapAtINEditStatusDeleteButton() async {
     HiveHelper<NoteModel> hiveHelper = HiveHelper(ConstsValue.kNoteBox);
     await hiveHelper.deleteValue(key: noteModel!.id.toString());
     Navigator.of(context).pop();

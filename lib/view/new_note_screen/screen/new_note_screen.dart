@@ -43,38 +43,39 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
             left: PaddingManager.p25,
             top: PaddingManager.p14,
           ),
-          child: Column(
-            children: [
-              CustomAppBarNewNoteScreen(
-                onPressedBack: () {
-                  _controller.goBack();
-                },
-                onPressedAtMark: () {
-                  _controller.onTapAtMarkIcon();
-                },
-                editNow: _controller.noteModel == null ? false : true,
-              ),
-              StreamBuilder<bool?>(
-                stream: _controller.outputEditStatus,
-                builder: (context, snapshot) => Expanded(
-                  child: Column(
-                    children: [
-                      CustomTextFieldTitle(
-                        active: snapshot.data,
-                        titleController: _controller.titleController,
+          child: StreamBuilder<bool?>(
+              stream: _controller.outputEditStatus,
+              builder: (context, snapshot) {
+                return Column(
+                  children: [
+                    CustomAppBarNewNoteScreen(
+                      onPressedBack: () {
+                        _controller.goBack();
+                      },
+                      onPressedAtMark: () {
+                        _controller.onTapAtMarkIcon();
+                      },
+                      editNow: snapshot.data,
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          CustomTextFieldTitle(
+                            active: snapshot.data,
+                            titleController: _controller.titleController,
+                          ),
+                          Expanded(
+                            child: CustomTextFiledDescNote(
+                              active: snapshot.data,
+                              descController: _controller.descController,
+                            ),
+                          )
+                        ],
                       ),
-                      Expanded(
-                        child: CustomTextFiledDescNote(
-                          active: snapshot.data,
-                          descController: _controller.descController,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+                    )
+                  ],
+                );
+              }),
         ),
       ),
     );
