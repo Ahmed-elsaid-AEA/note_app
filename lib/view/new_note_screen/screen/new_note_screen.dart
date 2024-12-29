@@ -16,12 +16,14 @@ class NewNoteScreen extends StatefulWidget {
 
 class _NewNoteScreenState extends State<NewNoteScreen> {
   late NewNoteController _controller;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller=NewNoteController(context);
+    _controller = NewNoteController(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +44,8 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
               ),
               Form(
                   child: Expanded(
-                    child: Column(
-                                    children: [
+                child: Column(
+                  children: [
                     TextFormField(
                       style: TextStyle(
                           fontSize: FontsManager.f48,
@@ -67,7 +69,6 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
                         maxLines: null,
                         decoration: InputDecoration(
                             hintText: ConstsValue.kTypeSomeThing,
-
                             border: InputBorder.none,
                             hintStyle: TextStyle(
                                 fontSize: FontsManager.f23,
@@ -75,9 +76,9 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
                                 color: ColorManager.kGrey2Color)),
                       ),
                     )
-                                    ],
-                                  ),
-                  ))
+                  ],
+                ),
+              ))
             ],
           ),
         ),
