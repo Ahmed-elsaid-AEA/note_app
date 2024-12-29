@@ -14,6 +14,10 @@ class ConstsValue{
   static const String kTypeSomeThing='Type something...';
   static const String kBack='Back';
   static const String kToSave='To Save';
+  static const String kSelect='Select';
+  static const String kEdit='Edit';
   static const String kShouldAddTitleAndDesc='Should add title and desc';
+  static const String kWhatDoYouWant='What Do You want to Do';
+
 
 }

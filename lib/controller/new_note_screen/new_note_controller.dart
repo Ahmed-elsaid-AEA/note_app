@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/core/database/hive/hive_helper.dart';
 import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/model/note_model/note_model.dart';
+import 'package:note_app/view/new_note_screen/widgets/bottom_sheet/custom_alert_edit_or_delete_note.dart';
 
 import '../../view/new_note_screen/widgets/bottom_sheet/custom_body_model_bttom_sheet_new_note.dart';
 
@@ -58,8 +59,8 @@ class NewNoteController {
       addNewNote();
     } else {
       //?edit
-      // editStatus = true;
-      // _inputEditStatus.add(editStatus);
+      //?now show bottom sheet alert to choose edit or delete
+      showAlertEditORDeleteNoteBottomSheet();
     }
   }
 
@@ -106,6 +107,21 @@ class NewNoteController {
     await helper.addValue(key: ConstsValue.kID, value: id);
   }
 
+  void showAlertEditORDeleteNoteBottomSheet() {
+    FocusScope.of(context).unfocus();
+    showModalBottomSheet(
+      // isDismissible: false,
+      backgroundColor: Colors.transparent,
+
+      context: context,
+      builder: (context) => CustomAlertEditOrDeleteNote(
+        onTapAtDeleteButton: onTapAtINEditStatusDeleteButton,
+        onTapAtEditButton: onTapAtINEditStatusEditButton,
+        onPressedClosed: onPressedClosed,
+      ),
+    );
+  }
+
   void showAlertBottomSheet() {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
@@ -124,6 +140,19 @@ class NewNoteController {
   void onTapAtDeleteButton() {
     Navigator.of(context).pop();
     Navigator.of(context).pop();
+  }
+
+  Future<void> onTapAtINEditStatusDeleteButton() async{
+    HiveHelper<NoteModel> hiveHelper = HiveHelper(ConstsValue.kNoteBox);
+    await hiveHelper.deleteValue(key: noteModel!.id.toString());
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
+  void onTapAtINEditStatusEditButton() {
+    Navigator.of(context).pop();
+    editStatus = true;
+    _inputEditStatus.add(editStatus);
   }
 
   void onTapAtOkButton() {
