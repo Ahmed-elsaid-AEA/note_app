@@ -31,9 +31,7 @@ class RoutesManager {
         body = NoFoundRouteScreen();
         break;
     }
-    return MaterialPageRoute(
-      builder: (context) => body,
-    );
+    return MaterialPageRoute(builder: (context) => body, settings: settings);
   }
 
 // static Map<String, WidgetBuilder> routes = {

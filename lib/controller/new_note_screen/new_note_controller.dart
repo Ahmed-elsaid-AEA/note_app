@@ -14,13 +14,22 @@ import '../../view/new_note_screen/widgets/bottom_sheet/custom_body_model_bttom_
 
 class NewNoteController {
   BuildContext context;
+  NoteModel? noteModel;
 
   NewNoteController(this.context) {
-    initController();
+    start();
   }
 
   late TextEditingController titleController;
   late TextEditingController descController;
+
+  Future<void> start() async {
+    await initController();
+    if (noteModel != null) {
+      //? fill data
+      fillDataNote();
+    }
+  }
 
   Future<void> initController() async {
     titleController = TextEditingController();
@@ -109,5 +118,22 @@ class NewNoteController {
 
   void onPressedClosed() {
     Navigator.of(context).pop();
+  }
+
+  void getArguments() {
+    var arg = ModalRoute.of(context)!.settings.arguments;
+    print(arg is NoteModel);
+    if (arg != null) {
+      //?now in edit
+      noteModel = arg as NoteModel;
+    }
+  }
+
+  void fillDataNote() {
+    //? desc
+    descController.text=noteModel!.desc;
+
+    //? title
+    titleController.text=noteModel!.title;
   }
 }

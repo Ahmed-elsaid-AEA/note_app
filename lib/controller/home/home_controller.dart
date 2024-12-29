@@ -50,6 +50,7 @@ class HomeController {
   }
 
   void onTapAtItemNote(NoteModel data) {
+
     Navigator.of(context).pushNamed(RoutesName.newNoteScreen, arguments: data);
   }
 }
