@@ -5,8 +5,15 @@ class OnBoardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("data")),
+    return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.red,),
+      body: Center(
+          child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("routeName");
+        },
+        child: Text("data"),
+      )),
     );
   }
 }

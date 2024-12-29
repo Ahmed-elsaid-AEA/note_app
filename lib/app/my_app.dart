@@ -7,8 +7,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: RoutesManager.onGenerateRoute,
       initialRoute: RoutesName.onBoardingScreen,
-      routes: RoutesManager.routes,
+      // routes: RoutesManager.routes,
     );
   }
 }
