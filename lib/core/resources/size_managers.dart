@@ -1,21 +1,24 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SizeManagers {}
 
 class HeightManager {
+  static double h6 = 6.h;
   static double h20 = 20.h;
   static double h50 = 50.h;
   static double h55 = 55.h;
   static double h75 = 75.h;
+  static double h70 = 70.h;
   static double h125 = 125.h;
   static double h282 = 282.h;
 }
 
 class WeightManager {
   static double w50 = 50.w;
+  static double w70 = 70.w;
   static double w75 = 75.w;
   static double w125 = 125.w;
   static double w282 = 282.w;
+  static double w286 = 286.w;
 }
 
 class FontsManager {
@@ -23,6 +26,9 @@ class FontsManager {
   static double f10 = 10.sp;
   static double f12 = 12.sp;
   static double f16 = 16.sp;
+  static double f20 = 20.sp;
+  static double f28 = 28.sp;
+  static double f30 = 30.sp;
   static double f48 = 48.sp;
   static double f50 = 50.sp;
   static double f75 = 75.sp;
