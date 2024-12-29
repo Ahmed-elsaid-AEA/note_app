@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HeightManager {
 
   static double h6 = 6.h;
+  static double h16 = 16.h;
   static double h20 = 20.h;
   static double h33 = 33.h;
 
@@ -16,14 +17,18 @@ class HeightManager {
 }
 
 class WeightManager {
+  static double w16 = 16.w;
+
   static double w33 = 33.w;
+  static double w41 = 41.w;
   static double w50 = 50.w;
   static double w70 = 70.w;
   static double w75 = 75.w;
   static double w125 = 125.w;
   static double w282 = 282.w;
   static double w286 = 286.w;
-}
+
+ }
 
 class FontsManager {
   static const String fontOtama='Otama';
@@ -47,6 +52,7 @@ class PaddingManager {
   static double p4 = 4;
   static double p6 = 6;
   static double p7 = 7;
+  static double p8 = 8;
   static double p14 = 14;
   static double p25 = 25;
   static double p30 = 30;

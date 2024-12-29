@@ -47,7 +47,7 @@ class CustomAppBarNewNoteScreen extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                       Radius.circular(BorderRadiusManager.br10))),
             ),
-            onPressed: () {},
+            onPressed: onPressedAtMark,
             child: Icon(
               CupertinoIcons.check_mark_circled,
               color: ColorManager.kWhiteColor,

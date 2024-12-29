@@ -6,6 +6,8 @@ import 'package:note_app/core/resources/colors_manager.dart';
 import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/core/resources/size_managers.dart';
 import 'package:note_app/view/new_note_screen/widgets/custom_app_bar_new_note_screen.dart';
+import 'package:note_app/view/new_note_screen/widgets/custom_test_field_desc_note.dart';
+import 'package:note_app/view/new_note_screen/widgets/custom_text_field_title.dart';
 
 class NewNoteScreen extends StatefulWidget {
   const NewNoteScreen({super.key});
@@ -25,6 +27,12 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
   }
 
   @override
+  void dispose() {
+    _controller.disposeController();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -40,45 +48,24 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
                 onPressedBack: () {
                   _controller.goBack();
                 },
-                onPressedAtMark: () {},
+                onPressedAtMark: () {
+                  _controller.onTapAtMarkIcon();
+                },
               ),
-              Form(
-                  child: Expanded(
+              Expanded(
                 child: Column(
                   children: [
-                    TextFormField(
-                      style: TextStyle(
-                          fontSize: FontsManager.f48,
-                          fontFamily: FontsManager.fontOtama,
-                          color: ColorManager.kBlackColor),
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                          hintText: ConstsValue.kTitle,
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(
-                              fontSize: FontsManager.f48,
-                              fontFamily: FontsManager.fontOtama,
-                              color: ColorManager.kGrey2Color)),
+                    CustomTextFieldTitle(
+                      titleController: _controller.titleController,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: TextStyle(
-                            fontSize: FontsManager.f23,
-                            fontFamily: FontsManager.fontOtama,
-                            color: ColorManager.kBlackColor),
-                        maxLines: null,
-                        decoration: InputDecoration(
-                            hintText: ConstsValue.kTypeSomeThing,
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(
-                                fontSize: FontsManager.f23,
-                                fontFamily: FontsManager.fontOtama,
-                                color: ColorManager.kGrey2Color)),
+                      child: CustomTextFiledDescNote(
+                        descController: _controller.descController,
                       ),
                     )
                   ],
                 ),
-              ))
+              )
             ],
           ),
         ),
