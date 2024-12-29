@@ -32,6 +32,7 @@ class WeightManager {
 
 class FontsManager {
   static const String fontOtama='Otama';
+  static double f8 = 8.sp;
   static double f10 = 10.sp;
   static double f12 = 12.sp;
   static double f16 = 16.sp;

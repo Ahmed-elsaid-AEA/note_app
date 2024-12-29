@@ -7,6 +7,8 @@ import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/core/resources/size_managers.dart';
 import 'package:note_app/generated/assets.dart';
 
+import '../../view/new_note_screen/widgets/bottom_sheet/custom_body_model_bttom_sheet_new_note.dart';
+
 class NewNoteController {
   BuildContext context;
 
@@ -55,113 +57,21 @@ class NewNoteController {
       backgroundColor: Colors.transparent,
 
       context: context,
-      builder: (context) => Container(
-        width: double.infinity,
-        padding: EdgeInsets.only(top: PaddingManager.p15),
-        margin: EdgeInsets.symmetric(horizontal: PaddingManager.p8),
-        decoration: BoxDecoration(
-            color: ColorManager.kWhiteColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(BorderRadiusManager.br15),
-              topRight: Radius.circular(BorderRadiusManager.br15),
-            )),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      ConstsValue.kShouldAddTitleAndDesc,
-                      style: TextStyle(
-                        color: ColorManager.kBlackColor,
-                        fontSize: FontsManager.f16,
-                        fontFamily: FontsManager.fontOtama,
-                      ),
-                    ),
-                    Text(
-                      ConstsValue.kToSave,
-                      style: TextStyle(
-                        color: ColorManager.kGrey2Color,
-                        fontSize: FontsManager.f10,
-                        fontFamily: FontsManager.fontOtama,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: WeightManager.w41,
-                ),
-                IconButton.filled(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorManager.kGrey2Color),
-                  onPressed: () {},
-                  icon: Icon(Icons.close),
-                  color: ColorManager.kWhiteColor,
-                ),
-                SizedBox(
-                  width: WeightManager.w16,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: HeightManager.h16,
-            ),
-            Divider(
-              height: 0,
-            ),
-            SizedBox(
-              height: HeightManager.h16,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  child: Column(
-                    children: [
-                      Icon(CupertinoIcons.check_mark_circled,color: ColorManager.kPrimaryColor,),
-                      Text(
-                        ConstsValue.kOk,
-                        style: TextStyle(
-                            fontSize: FontsManager.f10,
-                            fontFamily: Assets.fontsOtamaEp,
-                            color: ColorManager.kGrey2Color),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: WeightManager.w33,
-                ),
-                InkWell(
-                  child: Column(
-                    children: [
-                      Icon(
-                        CupertinoIcons.delete,
-                        color: Colors.red,
-                      ),
-                      Text(
-                        ConstsValue.kDelete,
-                        style: TextStyle(
-                            fontSize: FontsManager.f10,
-                            fontFamily: Assets.fontsOtamaEp,
-                            color: ColorManager.kGrey2Color),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ), SizedBox(
-              height: HeightManager.h16,
-            ),
-          ],
-        ),
+      builder: (context) => CustomBodyModelBottomSheetNewNote(
+        onTapAtDeleteButton: onTapAtDeleteButton,
+        onTapAtOkButton: onTapAtOkButton,
+        onPressedClosed: onPressedClosed,
       ),
     );
+  }
+
+  void onTapAtDeleteButton() {
+  }
+
+  void onTapAtOkButton() {
+  }
+
+  void onPressedClosed() {
+    Navigator.of(context).pop();
   }
 }
