@@ -45,13 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: ColorManager.kWhiteColor,
       ),
-      body: true
-          ? CustomGridViewNotesBody()
-          : RefreshIndicator(
-              onRefresh: () async {
-                _controller.getAllNote();
-              },
-              child: SingleChildScrollView(
+      body: RefreshIndicator(
+          onRefresh: () async {
+            _controller.getAllNote();
+          },
+          child: true
+              ? CustomGridViewNotesBody(
+                  outPutListNoteModel: _controller.outPutNotes,
+                )
+              : SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   child: CustomEmptyBodyHomeScreen())),
     );
