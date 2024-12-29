@@ -7,17 +7,22 @@ class CustomTextFieldTitle extends StatelessWidget {
   const CustomTextFieldTitle({
     super.key,
     required this.titleController,
+    required this.active,
   });
 
   final TextEditingController titleController;
+  final bool? active;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: active,
       style: TextStyle(
           fontSize: FontsManager.f48,
           fontFamily: FontsManager.fontOtama,
-          color: ColorManager.kBlackColor),
+          color: active == false
+              ? ColorManager.kGrey3Color
+              : ColorManager.kBlackColor),
       maxLines: 1,
       controller: titleController,
       decoration: InputDecoration(

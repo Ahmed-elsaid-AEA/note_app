@@ -1,13 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:note_app/core/database/hive/hive_helper.dart';
-import 'package:note_app/core/resources/colors_manager.dart';
 import 'package:note_app/core/resources/consts_values.dart';
-import 'package:note_app/core/resources/size_managers.dart';
-import 'package:note_app/generated/assets.dart';
 import 'package:note_app/model/note_model/note_model.dart';
 
 import '../../view/new_note_screen/widgets/bottom_sheet/custom_body_model_bttom_sheet_new_note.dart';
@@ -15,6 +11,11 @@ import '../../view/new_note_screen/widgets/bottom_sheet/custom_body_model_bttom_
 class NewNoteController {
   BuildContext context;
   NoteModel? noteModel;
+  bool? editStatus;
+
+  //?edit : null > add new note
+  //?edit : true > now you can edit
+  //?edit : false > you should change value to true to can edit
 
   NewNoteController(this.context) {
     start();
@@ -22,6 +23,9 @@ class NewNoteController {
 
   late TextEditingController titleController;
   late TextEditingController descController;
+  late StreamController<bool?> _controllerEditStatus;
+  late Sink<bool?> _inputEditStatus;
+  late Stream<bool?> outputEditStatus;
 
   Future<void> start() async {
     await initController();
@@ -34,6 +38,9 @@ class NewNoteController {
   Future<void> initController() async {
     titleController = TextEditingController();
     descController = TextEditingController();
+    _controllerEditStatus = StreamController();
+    _inputEditStatus = _controllerEditStatus.sink;
+    outputEditStatus = _controllerEditStatus.stream;
   }
 
   Future<void> disposeController() async {
@@ -46,7 +53,14 @@ class NewNoteController {
   }
 
   void onTapAtMarkIcon() {
-    addNewNote();
+    if (noteModel == null) {
+      //?add status
+      addNewNote();
+    } else {
+      //?edit
+      // editStatus = true;
+      // _inputEditStatus.add(editStatus);
+    }
   }
 
   void addNewNote() {
@@ -131,9 +145,13 @@ class NewNoteController {
 
   void fillDataNote() {
     //? desc
-    descController.text=noteModel!.desc;
+    descController.text = noteModel!.desc;
 
     //? title
-    titleController.text=noteModel!.title;
+    titleController.text = noteModel!.title;
+
+    //?change  edit status
+    editStatus = false;
+    _inputEditStatus.add(editStatus);
   }
 }

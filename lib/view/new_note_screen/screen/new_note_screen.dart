@@ -52,19 +52,25 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
                 onPressedAtMark: () {
                   _controller.onTapAtMarkIcon();
                 },
+                editNow: _controller.noteModel == null ? false : true,
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    CustomTextFieldTitle(
-                      titleController: _controller.titleController,
-                    ),
-                    Expanded(
-                      child: CustomTextFiledDescNote(
-                        descController: _controller.descController,
+              StreamBuilder<bool?>(
+                stream: _controller.outputEditStatus,
+                builder: (context, snapshot) => Expanded(
+                  child: Column(
+                    children: [
+                      CustomTextFieldTitle(
+                        active: snapshot.data,
+                        titleController: _controller.titleController,
                       ),
-                    )
-                  ],
+                      Expanded(
+                        child: CustomTextFiledDescNote(
+                          active: snapshot.data,
+                          descController: _controller.descController,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

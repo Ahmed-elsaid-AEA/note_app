@@ -7,17 +7,22 @@ class CustomTextFiledDescNote extends StatelessWidget {
   const CustomTextFiledDescNote({
     super.key,
     required this.descController,
+    this.active,
   });
 
   final TextEditingController descController;
+  final bool? active;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: active,
       style: TextStyle(
           fontSize: FontsManager.f23,
           fontFamily: FontsManager.fontOtama,
-          color: ColorManager.kBlackColor),
+          color: active == false
+              ? ColorManager.kGrey3Color
+              : ColorManager.kBlackColor),
       maxLines: null,
       controller: descController,
       decoration: InputDecoration(
