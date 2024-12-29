@@ -29,9 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: CustomFloatingActionButton(onPressed: () {
-        _controller.goToAddNewNoteScreen();
-      },),
+      floatingActionButton: CustomFloatingActionButton(
+        onPressed: () {
+          _controller.goToAddNewNoteScreen();
+        },
+      ),
       appBar: AppBar(
         title: Text(
           ConstsValue.kNote,
@@ -42,8 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: ColorManager.kWhiteColor,
       ),
-      body: CustomEmptyBodyHomeScreen(),
+      body: RefreshIndicator(
+          onRefresh: () async {
+            _controller.getAllNote();
+          },
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+              child: CustomEmptyBodyHomeScreen())),
     );
   }
 }
-

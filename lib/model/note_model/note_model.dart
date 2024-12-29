@@ -14,6 +14,11 @@ class NoteModel {
   @HiveField(4)
   final bool done;
 
+  @override
+  String toString() {
+    return 'NoteModel{id: $id, title: $title, desc: $desc, dateTime: $dateTime, done: $done}';
+  }
+
   const NoteModel({
     required this.id,
     required this.title,
