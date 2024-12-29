@@ -5,6 +5,7 @@ import 'package:note_app/core/resources/assets_manager.dart';
 import 'package:note_app/core/resources/colors_manager.dart';
 import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/core/resources/size_managers.dart';
+import 'package:note_app/model/note_model/note_model.dart';
 import 'package:note_app/view/home/widgets/custom_empty_body_home_screen.dart';
 import 'package:note_app/view/new_note_screen/widgets/custom_grid_view_notes_body.dart';
 
@@ -49,13 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
           onRefresh: () async {
             _controller.getAllNote();
           },
-          child: true
-              ? CustomGridViewNotesBody(
-                  outPutListNoteModel: _controller.outPutNotes,
-                )
-              : SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  child: CustomEmptyBodyHomeScreen())),
+          child: CustomGridViewNotesBody(
+            outPutListNoteModel: _controller.outPutNotes,
+            onTapAtNote: _controller.onTapAtItemNote,
+          )),
     );
   }
 }

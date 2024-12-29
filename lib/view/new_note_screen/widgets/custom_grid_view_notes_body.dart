@@ -6,11 +6,16 @@ import 'package:note_app/core/resources/assets_manager.dart';
 import 'package:note_app/core/resources/colors_manager.dart';
 import 'package:note_app/core/resources/size_managers.dart';
 import 'package:note_app/model/note_model/note_model.dart';
+import 'package:note_app/view/home/widgets/custom_empty_body_home_screen.dart';
 
 class CustomGridViewNotesBody extends StatelessWidget {
-  const CustomGridViewNotesBody({super.key, required this.outPutListNoteModel});
+  const CustomGridViewNotesBody(
+      {super.key,
+      required this.outPutListNoteModel,
+      required this.onTapAtNote});
 
   final Stream<List<NoteModel>> outPutListNoteModel;
+  final void Function(NoteModel data) onTapAtNote;
 
   @override
   Widget build(BuildContext context) {
@@ -23,27 +28,39 @@ class CustomGridViewNotesBody extends StatelessWidget {
                 )
               : snapshot.data == null
                   ? SizedBox()
-                  : GridView.builder(
-                      padding: EdgeInsets.all(PaddingManager.p25),
-                      itemCount: snapshot.data!.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: HeightManager.h135,
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 9,
-                          crossAxisSpacing: 11),
-                      itemBuilder: (context, index) => CustomItemNote(
-                        noteModel: snapshot.data![index],
-                        color: index % 5 == 0
-                            ? ColorManager.listColorNotes[4]
-                            : index % 4 == 0
-                                ? ColorManager.listColorNotes[3]
-                                : index % 3 == 0
-                                    ? ColorManager.listColorNotes[2]
-                                    : index % 2 == 0
-                                        ? ColorManager.listColorNotes[1]
-                                        : ColorManager.listColorNotes[0],
-                      ),
-                    ),
+                  : snapshot.data!.isEmpty
+                      ? Center(
+                          child: SingleChildScrollView(
+                              physics: AlwaysScrollableScrollPhysics(),
+                              child: CustomEmptyBodyHomeScreen()),
+                        )
+                      : GridView.builder(
+                          padding: EdgeInsets.all(PaddingManager.p25),
+                          itemCount: snapshot.data!.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisExtent: HeightManager.h135,
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 9,
+                                  crossAxisSpacing: 11),
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              onTapAtNote(snapshot.data![index]);
+                            },
+                            child: CustomItemNote(
+                              noteModel: snapshot.data![index],
+                              color: index % 5 == 0
+                                  ? ColorManager.listColorNotes[4]
+                                  : index % 4 == 0
+                                      ? ColorManager.listColorNotes[3]
+                                      : index % 3 == 0
+                                          ? ColorManager.listColorNotes[2]
+                                          : index % 2 == 0
+                                              ? ColorManager.listColorNotes[1]
+                                              : ColorManager.listColorNotes[0],
+                            ),
+                          ),
+                        ),
     );
   }
 }
@@ -94,27 +111,9 @@ class CustomItemNote extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff02463d),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(BorderRadiusManager.br5)))),
-                    label: Text(
-                      "Done",
-                      style: TextStyle(
-                          fontSize: FontsManager.f12,
-                          fontFamily: FontsManager.fontOtama,
-                          color: ColorManager.kWhiteColor),
-                    ),
-                    icon: Icon(
-                      CupertinoIcons.checkmark_alt_circle_fill,
-                      color: ColorManager.kLightGreen,
-                    ),
-                    onPressed: () {},
-                  ),
+                  ElevatedButtonDoneStatus(status: noteModel.done),
                   Text(
-                    "Mon, April, 2002",
+                    noteModel.dateTime,
                     style: TextStyle(
                         fontSize: FontsManager.f8,
                         color: ColorManager.kWhiteColor),
@@ -124,7 +123,7 @@ class CustomItemNote extends StatelessWidget {
             ],
           ),
           Text(
-            "Title 1",
+            noteModel.title,
             maxLines: 1,
             style: TextStyle(
               color: ColorManager.kWhiteColor,
@@ -138,7 +137,7 @@ class CustomItemNote extends StatelessWidget {
           Text(
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
-            "Title   sd  ds sd ds ds ds  sd ds ds sd sd sd dsd sds d ds ds ds sd ds sd sd ds ds ds  ds ds ds ds ds ds ",
+            noteModel.desc,
             style: TextStyle(
               color: ColorManager.kGrey3Color,
               fontSize: FontsManager.f8,
@@ -147,6 +146,41 @@ class CustomItemNote extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class ElevatedButtonDoneStatus extends StatelessWidget {
+  const ElevatedButtonDoneStatus({
+    super.key,
+    required this.status,
+  });
+
+  final bool status;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+          backgroundColor:
+              status == true ? Color(0xff02463d) : Color(0xfff7dee3),
+          shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.all(Radius.circular(BorderRadiusManager.br5)))),
+      label: Text(
+        status == true ? "Done" : "Not Done",
+        style: TextStyle(
+            fontSize: FontsManager.f12,
+            fontFamily: FontsManager.fontOtama,
+            color: status == true ? ColorManager.kWhiteColor : Colors.red),
+      ),
+      icon: Icon(
+        status == true
+            ? CupertinoIcons.checkmark_alt_circle_fill
+            : CupertinoIcons.clear_circled_solid,
+        color: status == true ? ColorManager.kLightGreen : Colors.red,
+      ),
+      onPressed: () {},
     );
   }
 }

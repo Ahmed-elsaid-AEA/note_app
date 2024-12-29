@@ -43,9 +43,13 @@ class HomeController {
   }
 
   Future<void> getAllNote() async {
+    _inputNotes.add([]);
     HiveHelper<NoteModel> hiveHelper = HiveHelper(ConstsValue.kNoteBox);
     Map<dynamic, NoteModel> data = await hiveHelper.getAllData();
-    print(data);
-    _inputNotes.add(data.values.toList());
+     _inputNotes.add(data.values.toList());
+  }
+
+  void onTapAtItemNote(NoteModel data) {
+    Navigator.of(context).pushNamed(RoutesName.newNoteScreen, arguments: data);
   }
 }

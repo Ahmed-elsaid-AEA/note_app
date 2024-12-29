@@ -15,7 +15,7 @@ class CustomEmptyBodyHomeScreen extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Column(
-         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
@@ -33,7 +33,9 @@ class CustomEmptyBodyHomeScreen extends StatelessWidget {
                 color: ColorManager.kBlackColor,
                 fontSize: FontsManager.f20),
           ),
-          SizedBox(height: HeightManager.h55,)
+          SizedBox(
+            height: HeightManager.h55,
+          )
         ],
       ),
     );
