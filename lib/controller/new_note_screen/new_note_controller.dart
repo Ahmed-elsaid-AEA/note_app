@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:note_app/core/database/hive/hive_helper.dart';
 import 'package:note_app/core/resources/colors_manager.dart';
 import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/core/resources/size_managers.dart';
 import 'package:note_app/generated/assets.dart';
+import 'package:note_app/model/note_model/note_model.dart';
 
 import '../../view/new_note_screen/widgets/bottom_sheet/custom_body_model_bttom_sheet_new_note.dart';
 
@@ -44,10 +47,40 @@ class NewNoteController {
       showAlertBottomSheet();
     } else {
       log("object");
+      addNewNoteToHive();
       //?add data to hive
       //?close
     }
     //?=============
+  }
+
+  Future<void> addNewNoteToHive() async {
+    int id = await getIdDefaultToNote();
+    id++;
+    NoteModel noteModel = NoteModel(
+        id: id,
+        title: titleController.text.trim(),
+        desc: descController.text.trim(),
+        dateTime: DateTime.now().toString(),
+        done: false);
+
+    HiveHelper<NoteModel> hiveHelper = HiveHelper(ConstsValue.kNoteBox);
+    await hiveHelper.addValue(key: id.toString(), value: noteModel);
+    //? now change value of default id
+    await addIDDefaultToNote(id);
+    //?return to main screen
+    Navigator.of(context).pop();
+  }
+
+  Future<int> getIdDefaultToNote() async {
+    HiveHelper<int> helper = HiveHelper(ConstsValue.kIDNoteBox);
+    int? id = await helper.getValue(key: ConstsValue.kID);
+    return id ?? 0;
+  }
+
+  Future<void> addIDDefaultToNote(int id) async {
+    HiveHelper<int> helper = HiveHelper(ConstsValue.kIDNoteBox);
+    await helper.addValue(key: ConstsValue.kID, value: id);
   }
 
   void showAlertBottomSheet() {
@@ -66,9 +99,12 @@ class NewNoteController {
   }
 
   void onTapAtDeleteButton() {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
   void onTapAtOkButton() {
+    Navigator.of(context).pop();
   }
 
   void onPressedClosed() {

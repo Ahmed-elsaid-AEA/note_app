@@ -6,6 +6,9 @@ class ConstsValue{
   static const String onBoardingDesc='Dive right in and clear that mind of yours by writing your thoughts down.';
   static const String kNote='Notes';
   static const String kOk='Ok';
+  static const String kNoteBox='NoteBox';
+  static const String kIDNoteBox='IDNoteBox';
+  static const String kID='id';
   static const String kDelete='Delete';
   static const String kTitle='Title';
   static const String kTypeSomeThing='Type something...';
