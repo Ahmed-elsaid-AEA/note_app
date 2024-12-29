@@ -6,6 +6,7 @@ import 'package:note_app/core/resources/colors_manager.dart';
 import 'package:note_app/core/resources/consts_values.dart';
 import 'package:note_app/core/resources/size_managers.dart';
 import 'package:note_app/view/home/widgets/custom_empty_body_home_screen.dart';
+import 'package:note_app/view/new_note_screen/widgets/custom_grid_view_notes_body.dart';
 
 import '../widgets/custom_floating_action_button_home_scren.dart';
 
@@ -44,13 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: ColorManager.kWhiteColor,
       ),
-      body: RefreshIndicator(
-          onRefresh: () async {
-            _controller.getAllNote();
-          },
-          child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-              child: CustomEmptyBodyHomeScreen())),
+      body: true
+          ? CustomGridViewNotesBody()
+          : RefreshIndicator(
+              onRefresh: () async {
+                _controller.getAllNote();
+              },
+              child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: CustomEmptyBodyHomeScreen())),
     );
   }
 }

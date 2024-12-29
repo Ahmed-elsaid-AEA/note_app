@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String fontsOtamaEp = 'assets/fonts/Otama-ep.otf';
+  static const String imagesBackgroundId = 'assets/images/background_id.svg';
   static const String imagesOnBoardingPng = 'assets/images/on_boarding_png.png';
 
 }

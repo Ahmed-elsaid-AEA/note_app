@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HeightManager {
 
+  static double h4 = 4.h;
   static double h6 = 6.h;
   static double h16 = 16.h;
   static double h20 = 20.h;
@@ -13,6 +14,8 @@ class HeightManager {
   static double h75 = 75.h;
   static double h70 = 70.h;
   static double h125 = 125.h;
+  static double h130 = 130.h;
+  static double h135 = 135.h;
   static double h282 = 282.h;
 }
 
@@ -54,6 +57,7 @@ class PaddingManager {
   static double p6 = 6;
   static double p7 = 7;
   static double p8 = 8;
+  static double p12 = 12;
   static double p14 = 14;
   static double p25 = 25;
   static double p30 = 30;
@@ -67,6 +71,8 @@ class PaddingManager {
 }
 
 class BorderRadiusManager {
+  static double br5 = 5.r;
+  static double br8 = 8.r;
   static double br10 = 10.r;
   static double br14 = 14.r;
   static double br25 = 25.r;
