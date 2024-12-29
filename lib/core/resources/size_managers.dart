@@ -31,6 +31,7 @@ class FontsManager {
   static double f12 = 12.sp;
   static double f16 = 16.sp;
   static double f20 = 20.sp;
+  static double f23 = 23.sp;
   static double f28 = 28.sp;
   static double f30 = 30.sp;
   static double f48 = 48.sp;

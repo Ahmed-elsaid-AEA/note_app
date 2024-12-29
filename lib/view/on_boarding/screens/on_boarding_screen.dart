@@ -36,41 +36,43 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: PaddingManager.p30),
         width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: HeightManager.h125,
-            ),
-            Image.asset(
-              width: WeightManager.w282,
-              AssetsManager.onBoardingPng,
-            ),
-            SizedBox(
-              height: HeightManager.h55,
-            ),
-            Text(
-              ConstsValue.onBoardingTitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: FontsManager.fontOtama,
-                  color: ColorManager.kBlackColor,
-                  fontSize: FontsManager.f48),
-            ),
-            SizedBox(
-              height: HeightManager.h20,
-            ),
-            Text(
-              ConstsValue.onBoardingDesc,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: ColorManager.kGreyColor,
-
-                  fontFamily: FontsManager.fontOtama,
-                  fontSize: FontsManager.f16),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: HeightManager.h125,
+              ),
+              Image.asset(
+                width: WeightManager.w282,
+                AssetsManager.onBoardingPng,
+              ),
+              SizedBox(
+                height: HeightManager.h55,
+              ),
+              Text(
+                ConstsValue.onBoardingTitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: FontsManager.fontOtama,
+                    color: ColorManager.kBlackColor,
+                    fontSize: FontsManager.f48),
+              ),
+              SizedBox(
+                height: HeightManager.h20,
+              ),
+              Text(
+                ConstsValue.onBoardingDesc,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: ColorManager.kGreyColor,
+          
+                    fontFamily: FontsManager.fontOtama,
+                    fontSize: FontsManager.f16),
+              ),
+            ],
+          ),
         ),
       ),
     );
